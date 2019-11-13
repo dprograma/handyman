@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import Card from '../components/Card';
+import Colors from '../constants/colors';
 
 const ServiceInformationForm = props => {
     return(
@@ -10,6 +11,14 @@ const ServiceInformationForm = props => {
             </Card>
         </View>
     );
+};
+
+ServiceInformationForm.navigationOptions = {
+    headerTitle: 'Artisan Categories',
+    headerStyle: {
+        backgroundColor: Platform.OS === 'android'? Colors.primaryColor: ''
+    },
+    headerTintColor: Platform.OS === 'android'?'white': Colors.primaryColor
 };
 
 const styles = StyleSheet.create({

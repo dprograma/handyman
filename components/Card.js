@@ -7,6 +7,7 @@ const Card = props => {
 
 const styles = StyleSheet.create({
     card: {
+        flex: 1,
         justifyContent: 'flex-start',
         backgroundColor: 'rgba(52,52,52,0.5)',
         padding: 10,

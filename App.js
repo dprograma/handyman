@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, ImageBackground } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Login from './Screen/login';
 import Registration from './Screen/registration';
 import * as Font from 'expo-font';
@@ -28,19 +28,20 @@ export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
 
   if (!fontLoaded) {
-    return(
-      <AppLoading startAsync={fetchFonts} onFinish={()=>{setFontLoaded(true)}} />
+    return (
+      <AppLoading startAsync={fetchFonts} onFinish={() => { setFontLoaded(true) }} />
     );
   }
   return (
-    <HandyManNavigator style={styles.container}/>
+      <HandyManNavigator />
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+
   }
 });
