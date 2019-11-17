@@ -16,9 +16,9 @@ const Registration = props => {
                 <View><Text style={styles.user} >Username</Text></View>
                 <TextInput style={styles.input} />
                 <View><Text style={styles.user}>Password</Text></View>
-                <TextInput style={styles.input} />
+                <TextInput secureTextEntry={true} style={styles.input} />
                 <View><Text style={styles.user}>Confirm</Text></View>
-                <TextInput style={styles.input} />
+                <TextInput secureTextEntry={true} style={styles.input} />
                 <View style={styles.signupButtonView}>
                     <Button color="black" style={styles.signUpButton} title="Sign Up" onPress={() => { props.navigation.navigate({ routeName: 'home' }) }} />
                 </View>
@@ -27,14 +27,6 @@ const Registration = props => {
             </Card>
         </ImageBackground>
     );
-};
-
-Registration.navigationOptions = {
-    headerTitle: 'User Registration',
-    headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
-    },
-    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
 };
 
 const styles = StyleSheet.create({

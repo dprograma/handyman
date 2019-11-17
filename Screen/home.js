@@ -6,7 +6,7 @@ import Colors from '../constants/colors';
 
 const Home = props => {
     const renderGridItem = (itemData) => {
-        return (<TouchableOpacity style={styles.gridItem} onPress={() => { props.navigation.navigate({ routeName: 'services' }) }} >
+        return (<TouchableOpacity style={styles.gridItem} onPress={() => { props.navigation.navigate({ routeName: 'services', params: {categoryId: itemData.item.id}}) }} >
             <View>
                 <Text style={styles.gridText}>{itemData.item.title}</Text>
             </View>
@@ -21,14 +21,6 @@ const Home = props => {
             </View>
         </ImageBackground>
     );
-};
-
-Home.navigationOptions = {
-    headerTitle: 'Artisan Categories',
-    headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
-    },
-    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
 };
 
 const styles = StyleSheet.create({

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import Login from './Screen/login';
-import Registration from './Screen/registration';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
+import { useScreens } from 'react-native-screens';
 import HandyManNavigator from './navigation/HandyManNavigator';
+
+useScreens();
 
 const fetchFonts = () => {
   return Font.loadAsync({

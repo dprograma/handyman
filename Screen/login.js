@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, Image, Platform, ImageBackground } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, Platform, ImageBackground, Button } from 'react-native';
 import Card from '../components/Card';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Colors from '../constants/colors';
@@ -8,11 +8,14 @@ const Login = props => {
     return (
         <ImageBackground style={styles.imagestyle} source={require('../assets/bg.png')}>
             <Card style={styles.card}>
-                <View><Text style={styles.title}>Login</Text></View>
+                <View><Text style={styles.title}>Sign In</Text></View>
                 <View><Text style={styles.user} >Username</Text></View>
                 <TextInput style={styles.input} />
                 <View><Text style={styles.user}>Password</Text></View>
-                <TextInput style={styles.input} />
+                <TextInput secureTextEntry={true} style={styles.input} />
+                <View style={styles.buttonview}>
+                    <Button color='black' title="SIGN IN" style={styles.buttonstyle} onPress={() => { props.navigation.navigate({ routeName: 'home' }) }} />
+                </View>
                 <View><Text style={styles.forgotPassword}>Forgot Password?</Text></View>
                 <TouchableOpacity style={styles.imageView} onPress={() => { props.navigation.navigate({ routeName: 'registration' }) }} >
                     <Image style={styles.imageButton} source={require('../assets/imagebutton.png')} />
@@ -21,14 +24,6 @@ const Login = props => {
             </Card>
         </ImageBackground>
     );
-};
-
-Login.navigationOptions = {
-    headerTitle: 'User Login',
-    headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
-    },
-    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
 };
 
 const styles = StyleSheet.create({
@@ -55,7 +50,7 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         fontSize: 14,
         color: 'white',
-        marginVertical: 15
+        marginTop: 15
     },
     imageButton: {
         width: 100,
@@ -79,7 +74,7 @@ const styles = StyleSheet.create({
     card: {
         width: '90%',
         height: 400,
-        maxHeight: '70%',
+        maxHeight: '75%',
         marginBottom: 20
     },
     imagestyle: {
@@ -90,6 +85,17 @@ const styles = StyleSheet.create({
         height: '100%',
         justifyContent: 'flex-end',
         alignItems: 'center'
+    },
+    buttonview: {
+        alignContent: 'center',
+        textAlign: 'center',
+        marginTop: 15,
+        opacity: 0.46,
+    },
+    buttonstyle: {
+        width: '60%',
+        height: 6,
+        borderRadius: 10
     }
 });
 

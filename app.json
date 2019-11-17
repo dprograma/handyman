@@ -23,6 +23,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Handy Man app is designed to meet customer need in finding specialist artisans skilled in building maintenance an installation at whatever location.",
+    "githubUrl": "https://github.com/dprograma/handyman.git"
   }
 }
