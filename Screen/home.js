@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, FlatList, StyleSheet, Text, TouchableOpacity, Platform, ImageBackground} from 'react-native';
-import Card from '../components/Card';
 import { CATEGORIES } from '../data/dummydata';
-import Colors from '../constants/colors';
 
 const Home = props => {
     const renderGridItem = (itemData) => {

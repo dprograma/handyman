@@ -60,7 +60,9 @@ const styles = StyleSheet.create({
     imageView: {
         justifyContent: 'center',
         alignItems: 'center',
-        opacity: 0.46
+        opacity: 0.46,
+        borderRadius: 10,
+        overflow: 'hidden'
     },
     newAccount: {
         fontSize: 14,

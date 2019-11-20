@@ -1,18 +1,23 @@
 import React from 'react';
-import { View, StyleSheet, Text, ImageBackground, Button} from 'react-native';
+import { View, StyleSheet, Text, ImageBackground, FlatList } from 'react-native';
 import Card from '../components/Card';
-import { CATEGORIES } from '../data/dummydata';
+import { CATEGORIES, CATEGORYSECTIONS } from '../data/dummydata';
+import CategoryItems from '../components/Categoryitems';
 
 const Services = props => {
     const catId = props.navigation.getParam('categoryId');
 
-    const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
+    const displayedCategory = CATEGORYSECTIONS.filter(cat => cat.categoryId.indexOf(catId) >= 0);
+
+    const categorySectionList = itemData => {
+        return <CategoryItems firstissue = {itemData.item.issue1} secondissue = {itemData.item.issue2} thirdissue = {itemData.item.issue3} fourthissue = {itemData.item.issue4} fifthissue = {itemData.item.issue5} sixthissue = {itemData.item.issue6} seventhissue = {itemData.item.issue7} />;
+    }
     return (
         <ImageBackground style={styles.imagestyle} source={require('../assets/serviceinfoform.png')}>
             <View style={styles.container}>
                 <Card style={styles.card}>
                     <Text>Services Screen</Text>
-                    <Button title="Service Information" onPress={()=>{props.navigation.navigate({routeName: 'serviceinformationform'})}} />
+                    <FlatList data={displayedCategory} keyExtractor={(item, index) => item.id} renderItem={categorySectionList} />
                 </Card>
             </View>
         </ImageBackground>
@@ -24,7 +29,7 @@ Services.navigationOptions = (navigationData) => {
 
     const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
 
-    return{
+    return {
         headerTitle: selectedCategory.title
     };
 };

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import { useScreens } from 'react-native-screens';
+import { enableScreens } from 'react-native-screens';
 import HandyManNavigator from './navigation/HandyManNavigator';
 
-useScreens();
+enableScreens();
 
 const fetchFonts = () => {
   return Font.loadAsync({
