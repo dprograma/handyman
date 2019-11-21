@@ -44,6 +44,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 15,
         opacity: 0.46,
+        borderRadius: 5,
+        overflow: 'hidden'
     },
     signUpButton: {
         width: '60%',

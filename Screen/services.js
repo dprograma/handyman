@@ -10,13 +10,13 @@ const Services = props => {
     const displayedCategory = CATEGORYSECTIONS.filter(cat => cat.categoryId.indexOf(catId) >= 0);
 
     const categorySectionList = itemData => {
-        return <CategoryItems firstissue = {itemData.item.issue1} secondissue = {itemData.item.issue2} thirdissue = {itemData.item.issue3} fourthissue = {itemData.item.issue4} fifthissue = {itemData.item.issue5} sixthissue = {itemData.item.issue6} seventhissue = {itemData.item.issue7} />;
+        return <CategoryItems firstissue={itemData.item.issue1} secondissue={itemData.item.issue2} thirdissue={itemData.item.issue3} fourthissue={itemData.item.issue4} fifthissue={itemData.item.issue5} sixthissue={itemData.item.issue6} seventhissue={itemData.item.issue7} onSelectCategory={() => { props.navigation.navigate({ routeName: 'serviceinformationform', params: { issueId: itemData.item.id }})}}/>;
     }
     return (
         <ImageBackground style={styles.imagestyle} source={require('../assets/serviceinfoform.png')}>
             <View style={styles.container}>
                 <Card style={styles.card}>
-                    <Text>Services Screen</Text>
+                    <Text style={styles.title}>Services Screen</Text>
                     <FlatList data={displayedCategory} keyExtractor={(item, index) => item.id} renderItem={categorySectionList} />
                 </Card>
             </View>
@@ -42,6 +42,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0,0,0,0.36)'
+    },
+    title: {
+        textAlign: 'center',
+        fontFamily: 'roboto-bold',
+        fontSize: 22,
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'solid',
+        color: 'rgba(255,255,255,0.86)',
+        marginBottom: 10
     },
     imagestyle: {
         position: 'absolute',

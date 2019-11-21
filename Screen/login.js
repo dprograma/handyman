@@ -61,8 +61,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         opacity: 0.46,
-        borderRadius: 10,
-        overflow: 'hidden'
     },
     newAccount: {
         fontSize: 14,
@@ -93,11 +91,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 15,
         opacity: 0.46,
+        borderRadius: 5,
+        overflow: 'hidden'
     },
     buttonstyle: {
         width: '60%',
         height: 6,
-        borderRadius: 10
     }
 });
 

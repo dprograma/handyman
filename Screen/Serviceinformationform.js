@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Platform, TextInput, Text, Button, ImageBackground } from 'react-native';
+import { View, StyleSheet, TextInput, Text, Button, ImageBackground } from 'react-native';
 import Card from '../components/Card';
-import Colors from '../constants/colors';
+import { CATEGORYSECTIONS } from '../data/dummydata';
 
 const ServiceInformationForm = props => {
+    const issueId = props.navigation.getParam('issueId');
     return (
         <ImageBackground style={styles.imagestyle} source={require('../assets/serviceinfoform.png')}>
             <View style={styles.container}>
@@ -36,7 +37,7 @@ const ServiceInformationForm = props => {
                     </View>
                     <TextInput style={styles.inputstyle} />
                     <View style={styles.buttonview}>
-                        <Button color="black" style={styles.inputbutton} title="Proceed" onPress={() => { props.navigation.navigate({ routeName: 'cart' }) }} />
+                        <Button color="black" style={styles.inputbutton} title="Proceed" onPress={() => { props.navigation.navigate({ routeName: 'cart', params: {cartId: issueId} }) }} />
                     </View>
                 </Card>
             </View>

@@ -1,9 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, Text, ImageBackground, Platform, TextInput, Button, Image } from 'react-native';
+import { View, StyleSheet, Text, ImageBackground, TextInput, Button, Image } from 'react-native';
 import Card from '../components/Card';
-import Colors from '../constants/colors';
+import { CATEGORYSECTIONS } from '../data/dummydata';
 
 const Cart = props => {
+    const cartId = props.navigation.getParam('cartId');
+
+    const issueTitle = props.navigation.getParam('issueTitle');
+
+    const selectedIssue = CATEGORYSECTIONS.find(issue => issue.id === cartId);
+
     return (
         <ImageBackground style={styles.imagestyle} source={require('../assets/serviceinfoform.png')}>
             <View style={styles.container}>
@@ -16,8 +22,8 @@ const Cart = props => {
                             <Image source={require('../assets/bg.png')} style={styles.servicethumb} />
                         </View>
                         <View style={styles.servicetype}>
-                            <Text style={styles.servicetext}>Category: categoryname</Text>
-                            <Text style={styles.servicetext}>Issue: issue of the category</Text>
+                            <Text style={styles.servicetext}>Category: {selectedIssue.title}</Text>
+                            <Text style={styles.servicetext}>Issue: {issueTitle}</Text>
                         </View>
                     </View>
                     <TextInput style={styles.inputstyle} />
@@ -28,9 +34,9 @@ const Cart = props => {
                             <Text style={styles.servicetext}>Tax</Text>
                         </View>
                         <View style={styles.serviceprice}>
-                            <Text style={styles.servicetext}>N250,000</Text>
-                            <Text style={styles.servicetext}>N35,000</Text>
-                            <Text style={styles.servicetext}>N2,500</Text>
+                            <Text style={styles.servicetext}>{selectedIssue.serviceCharge}</Text>
+                            <Text style={styles.servicetext}>{selectedIssue.logistics}</Text>
+                            <Text style={styles.servicetext}>{selectedIssue.tax}</Text>
                         </View>
                     </View>
                     <TextInput style={styles.inputstyle} />
@@ -40,7 +46,7 @@ const Cart = props => {
                         </View>
                         <View style={styles.servicechargeprice}>
                             <TextInput style={{width: 100, borderBottomColor: 'rgba(255,255,255,0.56)', borderBottomWidth: 1}} />
-                            <Text style={styles.servicetext}>N287,000</Text>
+                            <Text style={styles.servicetext}>{+selectedIssue.serviceCharge + +selectedIssue.logistics + +selectedIssue.tax}</Text>
                         </View>
                     </View>
                     <View style={styles.buttonview}>
