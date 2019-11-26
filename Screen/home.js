@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, Text, TouchableOpacity, Platform, ImageBackground} from 'react-native';
+import { View, FlatList, StyleSheet, Text, TouchableOpacity, ImageBackground} from 'react-native';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 import { CATEGORIES } from '../data/dummydata';
+
 
 const Home = props => {
     const renderGridItem = (itemData) => {
@@ -19,6 +22,14 @@ const Home = props => {
             </View>
         </ImageBackground>
     );
+};
+
+Home.navigationOptions = navData => {
+    return{
+        headerLeft: <HeaderButtons HeaderButtonComponent = {HeaderButton}>
+            <Item title="MENU" iconName='ios-menu' onPress={()=>{navData.navigation.toggleDrawer();}} />
+        </HeaderButtons>
+    };
 };
 
 const styles = StyleSheet.create({

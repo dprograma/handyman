@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, Button, Platform, ImageBackground } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, ImageBackground } from 'react-native';
 import Card from '../components/Card';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Colors from '../constants/colors';
 
 const Registration = props => {
     return (

@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, Image, Platform, ImageBackground, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, ImageBackground, Button } from 'react-native';
 import Card from '../components/Card';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Colors from '../constants/colors';
 
 const Login = props => {
     return (

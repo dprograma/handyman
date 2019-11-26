@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, TextInput, Text, Button, ImageBackground } from 'react-native';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 import Card from '../components/Card';
-import { CATEGORYSECTIONS } from '../data/dummydata';
 
 const ServiceInformationForm = props => {
     const issueId = props.navigation.getParam('issueId');
@@ -43,6 +44,14 @@ const ServiceInformationForm = props => {
             </View>
         </ImageBackground>
     );
+};
+
+ServiceInformationForm.navigationOptions = navData => {
+    return{
+        headerLeft: <HeaderButtons HeaderButtonComponent = {HeaderButton}>
+            <Item title="MENU" iconName='ios-menu' onPress={()=>{navData.navigation.toggleDrawer();}} />
+        </HeaderButtons>
+    };
 };
 
 const styles = StyleSheet.create({

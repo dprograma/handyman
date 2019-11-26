@@ -1,13 +1,18 @@
 import React from 'react';
 import { View, StyleSheet, Text, ImageBackground, FlatList } from 'react-native';
 import Card from '../components/Card';
-import { CATEGORIES, CATEGORYSECTIONS } from '../data/dummydata';
+import { CATEGORIES } from '../data/dummydata';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 import CategoryItems from '../components/Categoryitems';
+import { useSelector } from 'react-redux';
 
 const Services = props => {
     const catId = props.navigation.getParam('categoryId');
 
-    const displayedCategory = CATEGORYSECTIONS.filter(cat => cat.categoryId.indexOf(catId) >= 0);
+    const availableCategories = useSelector(state => state.categories.categories);
+
+    const displayedCategory = availableCategories.filter(cat => cat.categoryId.indexOf(catId) >= 0);
 
     const categorySectionList = itemData => {
         return <CategoryItems firstissue={itemData.item.issue1} secondissue={itemData.item.issue2} thirdissue={itemData.item.issue3} fourthissue={itemData.item.issue4} fifthissue={itemData.item.issue5} sixthissue={itemData.item.issue6} seventhissue={itemData.item.issue7} onSelectCategory={() => { props.navigation.navigate({ routeName: 'serviceinformationform', params: { issueId: itemData.item.id }})}}/>;
@@ -25,12 +30,15 @@ const Services = props => {
 };
 
 Services.navigationOptions = (navigationData) => {
-    const catId = navigationData.navigation.getParam('categoryId');
+    const categoryId = navigationData.navigation.getParam('categoryId');
 
-    const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
+    const selectedCategory = CATEGORIES.find(category => category.id === categoryId);
 
     return {
-        headerTitle: selectedCategory.title
+        headerTitle: selectedCategory.title,
+        headerLeft: <HeaderButtons HeaderButtonComponent = {HeaderButton}>
+            <Item title="MENU" iconName='ios-menu' onPress={()=>{navData.navigation.toggleDrawer();}} />
+        </HeaderButtons>
     };
 };
 

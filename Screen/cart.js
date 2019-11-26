@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, Text, ImageBackground, TextInput, Button, Image } from 'react-native';
 import Card from '../components/Card';
-import { CATEGORYSECTIONS } from '../data/dummydata';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
+import { useSelector } from 'react-redux';
 
 const Cart = props => {
     const cartId = props.navigation.getParam('cartId');
 
-    const issueTitle = props.navigation.getParam('issueTitle');
+    const availableCategories = useSelector(state => state.categories.categories);
 
-    const selectedIssue = CATEGORYSECTIONS.find(issue => issue.id === cartId);
+    const selectedIssue = availableCategories.find(issue => issue.id === cartId);
 
     return (
         <ImageBackground style={styles.imagestyle} source={require('../assets/serviceinfoform.png')}>
@@ -23,7 +25,7 @@ const Cart = props => {
                         </View>
                         <View style={styles.servicetype}>
                             <Text style={styles.servicetext}>Category: {selectedIssue.title}</Text>
-                            <Text style={styles.servicetext}>Issue: {issueTitle}</Text>
+                            <Text style={styles.servicetext}>Issue: </Text>
                         </View>
                     </View>
                     <TextInput style={styles.inputstyle} />
@@ -56,6 +58,14 @@ const Cart = props => {
             </View>
         </ImageBackground>
     );
+};
+
+Cart.navigationOptions = navData => {
+    return{
+        headerLeft: <HeaderButtons HeaderButtonComponent = {HeaderButton}>
+            <Item title="MENU" iconName='ios-menu' onPress={()=>{navData.navigation.toggleDrawer();}} />
+        </HeaderButtons>
+    };
 };
 
 const styles = StyleSheet.create({

@@ -4,8 +4,17 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { enableScreens } from 'react-native-screens';
 import HandyManNavigator from './navigation/HandyManNavigator';
+import { createStore, combineReducers } from 'redux';
+import categoriesReducer from './store/reducers/categoryreducer';
+import { Provider } from 'react-redux';
 
 enableScreens();
+
+const rootReducer = combineReducers({
+  categories: categoriesReducer
+});
+
+const store = createStore(rootReducer);
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -34,7 +43,7 @@ export default function App() {
     );
   }
   return (
-      <HandyManNavigator />
+      <Provider store={store}><HandyManNavigator /></Provider>
   );
 };
 
