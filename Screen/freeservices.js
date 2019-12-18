@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import Card from '../components/Card';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
@@ -17,7 +17,7 @@ const FreeServices = props => {
 FreeServices.navigationOptions = navData => {
     return{
         headerLeft: <HeaderButtons HeaderButtonComponent = {HeaderButton}>
-            <Item title="MENU" iconName='ios-menu' onPress={()=>{navData.navigation.toggleDrawer();}} />
+            <Item title="MENU" iconName={Platform.OS==='android'? 'md-menu':'ios-menu'} onPress={()=>{navData.navigation.toggleDrawer();}} />
         </HeaderButtons>
     };
 };

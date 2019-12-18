@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, ImageBackground, FlatList } from 'react-native';
+import { View, StyleSheet, Text, ImageBackground, FlatList, Platform } from 'react-native';
 import Card from '../components/Card';
 import { CATEGORIES } from '../data/dummydata';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -37,7 +37,7 @@ Services.navigationOptions = (navigationData) => {
     return {
         headerTitle: selectedCategory.title,
         headerLeft: <HeaderButtons HeaderButtonComponent = {HeaderButton}>
-            <Item title="MENU" iconName='ios-menu' onPress={()=>{navData.navigation.toggleDrawer();}} />
+            <Item title="MENU" iconName={Platform.OS==='android'? 'md-menu':'ios-menu'} onPress={()=>{navData.navigation.toggleDrawer();}} />
         </HeaderButtons>
     };
 };

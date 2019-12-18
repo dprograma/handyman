@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, Text, TouchableOpacity, ImageBackground} from 'react-native';
+import { View, FlatList, StyleSheet, Text, TouchableOpacity, ImageBackground, Platform} from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import { CATEGORIES } from '../data/dummydata';
@@ -27,7 +27,7 @@ const Home = props => {
 Home.navigationOptions = navData => {
     return{
         headerLeft: <HeaderButtons HeaderButtonComponent = {HeaderButton}>
-            <Item title="MENU" iconName='ios-menu' onPress={()=>{navData.navigation.toggleDrawer();}} />
+            <Item title="MENU" iconName={Platform.OS==='android'? 'md-menu':'ios-menu'} onPress={()=>{navData.navigation.toggleDrawer();}} />
         </HeaderButtons>
     };
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, ImageBackground, TextInput, Button, Image } from 'react-native';
+import { View, StyleSheet, Text, ImageBackground, TextInput, Button, Image, Platform } from 'react-native';
 import Card from '../components/Card';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
@@ -63,7 +63,7 @@ const Cart = props => {
 Cart.navigationOptions = navData => {
     return{
         headerLeft: <HeaderButtons HeaderButtonComponent = {HeaderButton}>
-            <Item title="MENU" iconName='ios-menu' onPress={()=>{navData.navigation.toggleDrawer();}} />
+            <Item title="MENU" iconName={Platform.OS==='android'? 'md-menu':'ios-menu'} onPress={()=>{navData.navigation.toggleDrawer();}} />
         </HeaderButtons>
     };
 };

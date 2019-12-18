@@ -1,5 +1,6 @@
 import Category from '../models/category';
 import CategorySection from '../models/categorysection';
+import ServiceInformation from '../models/serviceinformation';
 
 export const CATEGORIES = [
     new Category('a1', 'Plumbing', '#f5428d'),
@@ -24,3 +25,5 @@ export const CATEGORYSECTIONS = [
     new CategorySection('c8', 'a8', 'Welding', '../assets/weldingbg.png', 'Gates and Rails Repair', 'Tank Base Repair and General Welding Repairs',  'Others', '', '', '', '', '900', '20000', '90000', '../assets/weldingthumbimg.png'),
     new CategorySection('c9', 'a9', 'Other', '../assets/otherbg.png', 'Block Drainage', 'Pipe and Running Issues', 'Leakages', 'Broken Faucets and Sanitary Wares', 'Broken Pumping Machine', 'Water Treatment', 'Others', '1500', '20000', '150000', '../assets/otherthumbimg.png'),
 ];
+
+export const SERVICEINFORMATION = [new ServiceInformation('', '', '', '', '', '', '')]; 

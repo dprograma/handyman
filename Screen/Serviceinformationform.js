@@ -1,55 +1,100 @@
-import React from 'react';
-import { View, StyleSheet, TextInput, Text, Button, ImageBackground } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet, TextInput, Text, Button, ImageBackground, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import Card from '../components/Card';
+import * as serviceActions from '../store/actions/serviceinformationaction';
 
 const ServiceInformationForm = props => {
+
+    const dispatch = useDispatch();
+
     const issueId = props.navigation.getParam('issueId');
+    const editedUserServiceInfo = useSelector(state => state.serviceinformation.userServiceInformation.find(services => services.id === issueId));
+
+    const [firstname, setFirstname] = useState(editedUserServiceInfo?editedUserServiceInfo.firstname: '');
+    const [lastname, setLastname] = useState(editedUserServiceInfo?editedUserServiceInfo.lastname: '');
+    const [phonenumber, setPhonenumber] = useState(editedUserServiceInfo?editedUserServiceInfo.phonenumber: '');
+    const [email, setEmail] = useState(editedUserServiceInfo?editedUserServiceInfo.email: '');
+    const [address1, setAddress1] = useState(editedUserServiceInfo?editedUserServiceInfo.address1: '');
+    const [address2, setAddress2] = useState(editedUserServiceInfo?editedUserServiceInfo.address2: '');
+
+    const submitHandler = useCallback(() => {
+        if(editedUserServiceInfo){
+            dispatch(
+                serviceActions.updateService(issueId, firstname, lastname, phonenumber, email, address1, address2)
+            );
+        }else{
+            dispatch(
+                serviceActions.createService(firstname, lastname, phonenumber, email, address1, address2)
+            );
+        }
+        props.navigation.navigate({
+            routeName: 'cart',
+            params: {
+                cartId: issueId
+            }
+        });
+    }, [dispatch, issueId, firstname, lastname, phonenumber, email, address1, address2]);
+
+    useEffect(() => {
+        props.navigation.setParams({
+            submit: submitHandler
+        });
+    }, [submitHandler]);
+
+    const submitFn = props.navigation.getParam('submit');
+
     return (
-        <ImageBackground style={styles.imagestyle} source={require('../assets/serviceinfoform.png')}>
-            <View style={styles.container}>
-                <Card style={styles.card}>
-                    <View>
-                        <Text style={styles.title}>Service Information Form</Text>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={100}>
+            <ImageBackground style={styles.imagestyle} source={require('../assets/serviceinfoform.png')}>
+                <ScrollView>
+                    <View style={styles.container}>
+                        <Card style={styles.card}>
+                            <View>
+                                <Text style={styles.title}>Service Information Form</Text>
+                            </View>
+                            <View>
+                                <Text style={styles.textstyle}>First Name</Text>
+                            </View>
+                            <TextInput style={styles.inputstyle} value={firstname} onChangeText={text => setFirstname(text)} />
+                            <View>
+                                <Text style={styles.textstyle}>Last Name</Text>
+                            </View>
+                            <TextInput style={styles.inputstyle} value={lastname} onChangeText={text => setLastname(text)} />
+                            <View>
+                                <Text style={styles.textstyle}>Phone Number</Text>
+                            </View>
+                            <TextInput style={styles.inputstyle} value={phonenumber} onChangeText={text => setPhonenumber(text)} />
+                            <View>
+                                <Text style={styles.textstyle}>Email</Text>
+                            </View>
+                            <TextInput style={styles.inputstyle} value={email} onChangeText={text => setEmail(text)} />
+                            <View>
+                                <Text style={styles.textstyle}>Address Line 1</Text>
+                            </View>
+                            <TextInput style={styles.inputstyle} value={address1} onChangeText={text => setAddress1(text)} />
+                            <View>
+                                <Text style={styles.textstyle}>Address Line 2</Text>
+                            </View>
+                            <TextInput style={styles.inputstyle} value={address2} onChangeText={text => setAddress2(text)} />
+                            <View style={styles.buttonview}>
+                                <Button color="black" style={styles.inputbutton} title="Proceed" onPress={submitFn} />
+                            </View>
+                        </Card>
                     </View>
-                    <View>
-                        <Text style={styles.textstyle}>First Name</Text>
-                    </View>
-                    <TextInput style={styles.inputstyle} />
-                    <View>
-                        <Text style={styles.textstyle}>Last Name</Text>
-                    </View>
-                    <TextInput style={styles.inputstyle} />
-                    <View>
-                        <Text style={styles.textstyle}>Phone Number</Text>
-                    </View>
-                    <TextInput style={styles.inputstyle} />
-                    <View>
-                        <Text style={styles.textstyle}>Email</Text>
-                    </View>
-                    <TextInput style={styles.inputstyle} />
-                    <View>
-                        <Text style={styles.textstyle}>Address Line 1</Text>
-                    </View>
-                    <TextInput style={styles.inputstyle} />
-                    <View>
-                        <Text style={styles.textstyle}>Address Line 2</Text>
-                    </View>
-                    <TextInput style={styles.inputstyle} />
-                    <View style={styles.buttonview}>
-                        <Button color="black" style={styles.inputbutton} title="Proceed" onPress={() => { props.navigation.navigate({ routeName: 'cart', params: {cartId: issueId} }) }} />
-                    </View>
-                </Card>
-            </View>
-        </ImageBackground>
+                </ScrollView>
+            </ImageBackground>
+        </KeyboardAvoidingView>
     );
 };
 
 ServiceInformationForm.navigationOptions = navData => {
-    return{
-        headerLeft: <HeaderButtons HeaderButtonComponent = {HeaderButton}>
-            <Item title="MENU" iconName='ios-menu' onPress={()=>{navData.navigation.toggleDrawer();}} />
+    
+    return {
+        headerLeft: <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item title="MENU" iconName={Platform.OS==='android'? 'md-menu':'ios-menu'} onPress={() => { navData.navigation.toggleDrawer(); }} />
         </HeaderButtons>
     };
 };
