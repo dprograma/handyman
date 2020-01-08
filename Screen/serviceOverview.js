@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FlatList, Button, Platform, StyleSheet, ActivityIndicator, Text } from 'react-native';
+import { View, FlatList, Button, Platform, StyleSheet, ActivityIndicator, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import * as serviceActions from '../store/actions/serviceinformationaction';
 import Colors from '../constants/colors';
+import ServiceItem from '../components/serviceitems';
 
 const ServiceOverviewScreen =  props => {
     const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +60,17 @@ const ServiceOverviewScreen =  props => {
     }
 
     return(
-        <FlatList />
+        <FlatList data={services} keyExtractor={item => item.id} renderItem={itemData => (
+        <ServiceItem 
+            firstname = {itemData.item.firstname}
+            lastname = {itemData.item.lastname}
+            phonenumber = {itemData.item.phonenumber}
+            email = {itemData.item.email}
+            address1 = {itemData.item.address1}
+            address2 = {itemData.item.address2}
+            updateddate = {itemData.item.updateddate}
+        />
+        )} />
     );
 };
 
@@ -71,7 +82,7 @@ ServiceOverviewScreen.navigationOptions = navData => {
     };
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     centered: {
         flex: 1,
         justifyContent: 'center',

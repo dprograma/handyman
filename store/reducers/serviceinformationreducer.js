@@ -15,7 +15,8 @@ const serviceInformationReducer = (state = initialstate, action) => {
                 updatedUserServiceInformation: action.services
             };
         case CREATE_SERVICE:
-            const newService = new ServiceInformation(action.serviceData.id, action.serviceData.firstname, action.serviceData.lastname, action.serviceData.phonenumber, action.serviceData.email, action.serviceData.address1, action.serviceData.address2
+            const newService = new ServiceInformation(action.serviceData.id, action.serviceData.firstname, action.serviceData.lastname, action.serviceData.phonenumber, action.serviceData.email, action.serviceData.address1, action.serviceData.address2,
+            action.serviceData.date, action.serviceData.updateddate
             );
             return {
                 ...state, userServiceInformation: state.userServiceInformation.concat(newService)
@@ -24,7 +25,8 @@ const serviceInformationReducer = (state = initialstate, action) => {
         case UPDATE_SERVICE:
             const serviceIndex = state.updatedUserServiceInformation.findIndex(service => service.id === action.id);
 
-            const updatedService = new ServiceInformation( state.updatedUserServiceInformation[serviceIndex].id, action.serviceData.firstname, action.serviceData.lastname, action.serviceData.phonenumber, action.serviceData.email, action.serviceData.address1, action.serviceData.address2);
+            const updatedService = new ServiceInformation( state.updatedUserServiceInformation[serviceIndex].id, action.serviceData.firstname, action.serviceData.lastname, action.serviceData.phonenumber, action.serviceData.email, action.serviceData.address1, action.serviceData.address2,
+            action.serviceData.date, action.serviceData.updateddate);
             return{
                 ...state, updatedUserServiceInformation: updatedService
             };

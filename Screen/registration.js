@@ -36,7 +36,7 @@ const Registration = props => {
     };
 
     const passwordHandler = pwd => {
-        if (pwd.length === 0 || pwd.minLength < 6 ) {
+        if (pwd.minLength < 6 ) {
             setIsPassword('');
             setPasswordError(true);
         } else {
@@ -46,7 +46,7 @@ const Registration = props => {
     };
 
     const pwdConfirmHandler = pwdConfirm => {
-        if(pwdConfirm.length === 0 || pwdConfirm.minLength < 6){
+        if(pwdConfirm.minLength < 6){
            setIsConfirmed('');
         }else{
             setIsConfirmed(pwdConfirm);
@@ -56,24 +56,25 @@ const Registration = props => {
     const submitHandler = () => {
         if(!isNaN(firstNameIsValid.trim()) || firstNameIsValid.trim().minLength < 3){
             setFirstNameError(true);
-            return;
+            return false;
         }
         else if(!isNaN(lastNameIsValid.trim()) || lastNameIsValid.trim().minLength < 3){
             setLastNameError(true);
-            return;
+            return false;
         }
-        else if(isPassword.length === 0 || isPassword.minLength < 6 ){
+        else if(isPassword.minLength < 6){
             setPasswordError(true);
-            return;
+            return false;
         }
         else if(isConfirmed !== isPassword){
             setConfirmError(true);
-            return;
+            return false;
         }
-        setFirstNameError(true);
-        setLastNameError(true);
-        setPasswordError(true);
-        setConfirmError(true);
+        setFirstNameError(false);
+        setLastNameError(false);
+        setPasswordError(false);
+        setConfirmError(false);
+        props.navigation.navigate({ routeName: 'login' })
     };
 
     return (

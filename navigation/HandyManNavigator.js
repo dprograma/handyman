@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../Screen/login';
@@ -17,24 +17,20 @@ import EditProfile from '../Screen/editprofile';
 import FreeServices from '../Screen/freeservices';
 import SettingsScreen from '../Screen/settings';
 import LegalScreen from '../Screen/legal';
+import ServiceOverviewScreen from '../Screen/serviceOverview';
+
+const defaultnavoption = {
+    headerStyle: {
+        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
+    },
+    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
+};
 
 const HandyManNavigator = createStackNavigator({
-    login: {
-        screen: Login,
-        navigationOptions: {
-            headerTitle: 'User Login'
-        }
-    },
     home: {
         screen: Home,
         navigationOptions: {
             headerTitle: 'Artisan Categories'
-        }
-    },
-    registration: {
-        screen: Registration,
-        navigationOptions: {
-            headerTitle: 'User Registration'
         }
     },
     services: {
@@ -43,7 +39,7 @@ const HandyManNavigator = createStackNavigator({
     serviceinformationform: {
         screen: ServiceInformationForm,
         navigationOptions: {
-            headerTitle: 'Serive Information Form'
+            headerTitle: 'Service Information Form'
         }
     },
     cart: {
@@ -61,52 +57,91 @@ const HandyManNavigator = createStackNavigator({
     accountandprofile: {
         screen: AccountAndProfile
     },
-    Editprofile: {
+},
+{
+    defaultNavigationOptions: defaultnavoption
+},
+{
+    initialRouteName: 'Home'
+}
+);
+
+const profileNavigator = createStackNavigator({
+    editProfile: {
         screen: EditProfile,
         navigationOptions: {
-            headerTitle: 'Edit profile'
+            headerTitle: 'Edit Profile'
         }
-    },
-    Ourservices: {
+    }
+},{
+    defaultNavigationOptions: defaultnavoption
+});
+
+const servicesNavigator = createStackNavigator({
+    ourservice: {
         screen: OurServices,
         navigationOptions: {
             headerTitle: 'Our Services'
         }
-    },
-    helpScreen: {
+    }
+},{
+    defaultNavigationOptions: defaultnavoption
+});
+
+const overviewNavigator = createStackNavigator({
+    overview: {
+        screen: ServiceOverviewScreen,
+        navigationOptions:{
+            headerTitle: 'Service Overview'
+        }
+    }
+},{
+    defaultNavigationOptions: defaultnavoption
+});
+
+const helpNavigator = createStackNavigator({
+    helpScreen:{
         screen: HelpScreen,
         navigationOptions: {
             headerTitle: 'Help'
         }
-    },
+    }
+},{
+    defaultNavigationOptions: defaultnavoption
+});
+
+const freeServiceNavigator = createStackNavigator({
     freeServices: {
         screen: FreeServices,
         navigationOptions: {
             headerTitle: 'Free Services'
         }
-    },
+    }
+},{
+    defaultNavigationOptions: defaultnavoption
+});
+
+const settingsNavigator = createStackNavigator({
     settingsScreen: {
         screen: SettingsScreen,
         navigationOptions: {
             headerTitle: 'Settings'
         }
-    },
+    }
+},{
+    defaultNavigationOptions: defaultnavoption
+});
+
+const legalNavigator = createStackNavigator({
     legalScreen: {
         screen: LegalScreen,
         navigationOptions: {
             headerTitle: 'Legal'
         }
-    },
-},
-{
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
-        },
-        headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
     }
-}
-);
+},{
+    defaultNavigationOptions: defaultnavoption
+});
 
 const MainNavigator = createDrawerNavigator({
     HomePage: {
@@ -115,38 +150,38 @@ const MainNavigator = createDrawerNavigator({
             drawerLabel: 'Home'
         }
     },
-    Editprofile: {
-        screen: EditProfile,
+    profile: {
+        screen: profileNavigator,
         navigationOptions: {
             drawerLabel: 'Edit profile'
         }
     },
-    Ourservices: {
-        screen: OurServices,
+    overview: {
+        screen: overviewNavigator,
         navigationOptions: {
-            drawerLabel: 'Our Services'
+            drawerLabel: 'Service Overview'
         }
     },
     helpScreen: {
-        screen: HelpScreen,
+        screen: helpNavigator,
         navigationOptions: {
             drawerLabel: 'Help'
         }
     },
     freeServices: {
-        screen: FreeServices,
+        screen: freeServiceNavigator,
         navigationOptions: {
             drawerLabel: 'Free Services'
         }
     },
     settingsScreen: {
-        screen: SettingsScreen,
+        screen: settingsNavigator,
         navigationOptions: {
             drawerLabel: 'Settings'
         }
     },
     legalScreen: {
-        screen: LegalScreen,
+        screen: legalNavigator,
         navigationOptions: {
             drawerLabel: 'Legal'
         }
@@ -158,6 +193,26 @@ const MainNavigator = createDrawerNavigator({
             fontFamily: 'roboto-bold'
         }
     }
+},{
+    initialRouteName: 'home'
 });
 
-export default createAppContainer(MainNavigator);
+const UserNavigator = createSwitchNavigator({
+    login: {
+        screen: Login,
+        navigationOptions: {
+            headerTitle: 'Login'
+        }
+    },
+    registration: {
+        screen: Registration,
+        navigationOptions: {
+            headerTitle: 'Registration'
+        }
+    },
+    //AuthLogin: {screen: Login},
+    //AuthReg: {screen: Registration},
+    Main: {screen: MainNavigator, navigationOptions: {header: null}}
+});
+
+export default createAppContainer(UserNavigator);

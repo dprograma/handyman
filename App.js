@@ -8,13 +8,17 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import categoriesReducer from './store/reducers/categoryreducer';
 import serviceInformationReducer from './store/reducers/serviceinformationreducer';
+import ordersReducer from './store/reducers/orders';
+import cartReducer from './store/reducers/cart';
 import { Provider } from 'react-redux';
 
 enableScreens();
 
 const rootReducer = combineReducers({
   categories: categoriesReducer,
-  serviceinformation: serviceInformationReducer
+  serviceinformation: serviceInformationReducer,
+  orders: ordersReducer,
+  cart: cartReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

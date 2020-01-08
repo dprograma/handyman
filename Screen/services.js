@@ -37,7 +37,7 @@ Services.navigationOptions = (navigationData) => {
     return {
         headerTitle: selectedCategory.title,
         headerLeft: <HeaderButtons HeaderButtonComponent = {HeaderButton}>
-            <Item title="MENU" iconName={Platform.OS==='android'? 'md-menu':'ios-menu'} onPress={()=>{navData.navigation.toggleDrawer();}} />
+            <Item title="MENU" iconName={Platform.OS==='android'? 'md-menu':'ios-menu'} onPress={()=>{navigationData.navigation.toggleDrawer();}} />
         </HeaderButtons>
     };
 };

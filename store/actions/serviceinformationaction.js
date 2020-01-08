@@ -32,7 +32,7 @@ export const fetchService = () => {
             );
         }
     
-            dispatch({ type: SET_SERVICE, services: [] });
+            dispatch({ type: SET_SERVICE, services: loadedService });
     } catch (err) {
         throw err;
     }
@@ -75,7 +75,7 @@ export const createService = (firstname, lastname, phonenumber, email, address1,
             address1,
             address2,
             date: date,
-            date: date,
+            updateddate: date,
         }
         });
     };
@@ -104,7 +104,7 @@ export const updateService = (id, firstname, lastname, phonenumber, email, addre
             }
         );
         dispatch({type: UPDATE_SERVICE,
-            serviceid: id,
+            id: id,
             serviceData: {
             firstname,
             lastname,
