@@ -3,7 +3,7 @@ import Order from '../../models/order';
 export const ADD_ORDER = 'ADD_ORDER';
 export const SET_ORDERS = 'SET_ORDERS';
 
-export const fetchService = () => {
+export const fetchOrders = () => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
     try {

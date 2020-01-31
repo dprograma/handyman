@@ -14,8 +14,8 @@ export default (state = initialState, action) => {
     case ADD_ORDER:
       const newOrder = new Order(
         action.orderData.id,
-        action.orderData.issue,
-        action.orderData.totalAmount,
+        action.orderData.items,
+        action.orderData.amount,
         action.orderData.date
       );
       return {

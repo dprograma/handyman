@@ -1,64 +1,52 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
-import * as Font from 'expo-font';
-import { AppLoading } from 'expo';
-import { enableScreens } from 'react-native-screens';
-import HandyManNavigator from './navigation/HandyManNavigator';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import ReduxThunk from 'redux-thunk';
-import categoriesReducer from './store/reducers/categoryreducer';
-import serviceInformationReducer from './store/reducers/serviceinformationreducer';
-import ordersReducer from './store/reducers/orders';
-import cartReducer from './store/reducers/cart';
 import { Provider } from 'react-redux';
+import { AppLoading } from 'expo';
+import * as Font from 'expo-font';
+import ReduxThunk from 'redux-thunk';
 
-enableScreens();
+import productsReducer from './store/reducers/products';
+import cartReducer from './store/reducers/cart';
+import ordersReducer from './store/reducers/orders';
+import authReducer from './store/reducers/auth';
+import NavigationContainer from './navigation/NavigationContainer';
+import ApiKeys from './constants/ApiKeys';
+import * as firebase from 'firebase';
 
 const rootReducer = combineReducers({
-  categories: categoriesReducer,
-  serviceinformation: serviceInformationReducer,
+  products: productsReducer,
+  cart: cartReducer,
   orders: ordersReducer,
-  cart: cartReducer
+  auth: authReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const fetchFonts = () => {
   return Font.loadAsync({
-    'roboto-black': require('./assets/fonts/Roboto-Black.ttf'),
-    'roboto-blackitalic': require('./assets/fonts/Roboto-BlackItalic.ttf'),
-    'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
-    'roboto-bolditalic': require('./assets/fonts/Roboto-BoldItalic.ttf'),
-    'roboto-italic': require('./assets/fonts/Roboto-Italic.ttf'),
-    'roboto-light': require('./assets/fonts/Roboto-Light.ttf'),
-    'roboto-lightitalic': require('./assets/fonts/Roboto-LightItalic.ttf'),
-    'roboto-medium': require('./assets/fonts/Roboto-Medium.ttf'),
-    'roboto-mediumitalic': require('./assets/fonts/Roboto-MediumItalic.ttf'),
-    'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
-    'roboto-thin': require('./assets/fonts/Roboto-Thin.ttf'),
-    'roboto-thinitalic': require('./assets/fonts/Roboto-ThinItalic.ttf'),
+    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
   });
 };
 
 export default function App() {
-
   const [fontLoaded, setFontLoaded] = useState(false);
 
   if (!fontLoaded) {
     return (
-      <AppLoading startAsync={fetchFonts} onFinish={() => { setFontLoaded(true) }} />
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => {
+          setFontLoaded(true);
+        }}
+      />
     );
   }
+
+  if (!firebase.apps.length) { firebase.initializeApp(ApiKeys.FirebaseConfig); } 
   return (
-      <Provider store={store}><HandyManNavigator /></Provider>
+    <Provider store={store}>
+      <NavigationContainer />
+    </Provider>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-
-  }
-});
+}

@@ -3,7 +3,7 @@
     "name": "Handy Man",
     "slug": "handy-man",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
+    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android",
@@ -23,8 +23,6 @@
     ],
     "ios": {
       "supportsTablet": true
-    },
-    "description": "Handy Man app is designed to meet customer need in finding specialist artisans skilled in building maintenance an installation at whatever location.",
-    "githubUrl": "https://github.com/dprograma/handyman.git"
+    }
   }
 }

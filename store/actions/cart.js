@@ -1,10 +1,10 @@
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 
-export const addToCart = service => {
-  return { type: ADD_TO_CART, service: service };
+export const addToCart = product => {
+  return { type: ADD_TO_CART, product: product };
 };
 
-export const removeFromCart = serviceId => {
-  return { type: REMOVE_FROM_CART, pid: serviceId };
+export const removeFromCart = productId => {
+  return { type: REMOVE_FROM_CART, pid: productId };
 };

@@ -1,7 +1,7 @@
 import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cart';
 import { ADD_ORDER } from '../actions/orders';
 import CartItem from '../../models/cart-item';
-import { DELETE_SERVICE } from '../actions/serviceinformationaction';
+import { DELETE_PRODUCT } from '../actions/products';
 
 const initialState = {
   items: {},
@@ -11,27 +11,27 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const addedService = action.service;
-      const servicePrice = addedService.servicecharge;
-      const serviceTitle = addedService.logistics;
+      const addedProduct = action.product;
+      const prodPrice = addedProduct.price;
+      const prodTitle = addedProduct.title;
 
       let updatedOrNewCartItem;
 
-      if (state.items[addedService.id]) {
+      if (state.items[addedProduct.id]) {
         // already have the item in the cart
         updatedOrNewCartItem = new CartItem(
-          state.items[addedService.id].quantity + 1,
-          servicePrice,
-          serviceTitle,
-          state.items[addedService.id].sum + servicePrice
+          state.items[addedProduct.id].quantity + 1,
+          prodPrice,
+          prodTitle,
+          state.items[addedProduct.id].sum + prodPrice
         );
       } else {
-        updatedOrNewCartItem = new CartItem(1, servicePrice, serviceTitle, servicePrice);
+        updatedOrNewCartItem = new CartItem(1, prodPrice, prodTitle, prodPrice);
       }
       return {
         ...state,
-        items: { ...state.items, [addedService.id]: updatedOrNewCartItem },
-        totalAmount: state.totalAmount + servicePrice
+        items: { ...state.items, [addedProduct.id]: updatedOrNewCartItem },
+        totalAmount: state.totalAmount + prodPrice
       };
     case REMOVE_FROM_CART:
       const selectedCartItem = state.items[action.pid];
@@ -40,9 +40,10 @@ export default (state = initialState, action) => {
       if (currentQty > 1) {
         // need to reduce it, not erase it
         const updatedCartItem = new CartItem(
-          selectedCartItem.servicePrice,
-          selectedCartItem.serviceTitle,
-          selectedCartItem.sum - selectedCartItem.servicePrice
+          selectedCartItem.quantity - 1,
+          selectedCartItem.productPrice,
+          selectedCartItem.productTitle,
+          selectedCartItem.sum - selectedCartItem.productPrice
         );
         updatedCartItems = { ...state.items, [action.pid]: updatedCartItem };
       } else {
@@ -52,11 +53,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         items: updatedCartItems,
-        totalAmount: state.totalAmount - selectedCartItem.servicePrice
+        totalAmount: state.totalAmount - selectedCartItem.productPrice
       };
     case ADD_ORDER:
       return initialState;
-    case DELETE_SERVICE:
+    case DELETE_PRODUCT:
       if (!state.items[action.pid]) {
         return state;
       }
